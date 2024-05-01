@@ -1,6 +1,7 @@
 exports.up = knex => knex.schema.createTable("documentFields", table => {
   table.increments("id");
-  table.integer("document_id").references("id").inTable("documents");
+  table.integer("document_id").references("id").inTable("documents").onDelete("CASCADE");
+
   table.text("name");
   table.text("marital_status");
   table.text("occupation");
@@ -20,9 +21,6 @@ exports.up = knex => knex.schema.createTable("documentFields", table => {
   table.integer("total_payment_installments"); // valor de cada parcela
   table.date("payment_date");
 
-  table.timestamp("created_at").default(knex.fn.now());
-
 });
-
 
 exports.down = knex => knex.schema.dropTable("documentFields");
