@@ -1,6 +1,7 @@
 exports.up = knex => knex.schema.createTable("documentFields", table => {
   table.increments("id");
   table.integer("document_id").references("id").inTable("documents").onDelete("CASCADE");
+  table.integer("template_id").references("id").inTable("templates").onDelete("CASCADE");
 
   table.text("name");
   table.text("marital_status");
