@@ -1,4 +1,5 @@
 const knex = require("../database/knex");
+const AppError = require("../utils/AppError");
 
 class DocumentsController {
   async create(request, response) {
@@ -78,7 +79,7 @@ class DocumentsController {
         .whereLike("title", `%${title}%`)
         .orderBy("created_at")
 
-  } 
+  }
 
     return response.status(201).json(documents);
   }
@@ -88,6 +89,10 @@ class DocumentsController {
     const { id } = request.params;
 
     const document = await knex("documents").where({ id }).first();
+    if(!document) {
+      throw new AppError("Documento não encontrado!");
+    };
+
     let documentFields = await knex("documentFields")
       .where({ document_id: id })
 

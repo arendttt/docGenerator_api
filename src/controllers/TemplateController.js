@@ -32,15 +32,6 @@ class TemplateController {
       total_payment_installments,
       payment_date 
     } = request.body; // pegando os dados da requisição
-    //const templateFileName = request.file.filename; // pegando o nome do arquivo
-
-
-    /*
-    // para salvar o arquivo no banco
-    const templateDiskStorage = new TemplateDiskStorage();
-    const filename = await templateDiskStorage.saveFile(templateFileName);
-    template.template_file = filename;
-    */
 
     if(!title){
       throw new AppError("Preencha o titulo para prosseguir.")
@@ -112,6 +103,8 @@ class TemplateController {
   async update(request, response) {
     const template_id = request.params.id;
     const templateFileName = request.file.filename;
+
+    console.log(templateFileName)
 
     const templateDiskStorage = new TemplateDiskStorage();
 

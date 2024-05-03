@@ -14,7 +14,7 @@ const templateController = new TemplateController();
 templatesRoutes.use(ensureAuthenticated);
 
 templatesRoutes.post("/", templateController.create);
-templatesRoutes.patch("/files/:id", upload.single("template_file"), templateController.update); 
+templatesRoutes.patch("/templates/:id", upload.single("template_file"), templateController.update); 
 
 
 module.exports = templatesRoutes;
