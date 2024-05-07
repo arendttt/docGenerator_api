@@ -66,40 +66,12 @@ class TemplateController {
       payment_date
     };
 
-    await knex("documentFields").insert(templateFieldsInsert);
-
+    await knex("templateFields").insert(templateFieldsInsert);
 
     return response.status(201).json();
-
-
-
-
-
-
-
-
-
-
-
-    // identificando o template
-    const newTemplate = fs.readFileSync(`${templateFileName}.docx`); 
-    // gerar o relatório dinâmico
-    const buffer = await createReport({
-      newTemplate,
-      cmdDelimiter: ["{{", "}}"],
-      data: {
-        
-      }
-    });
-    // gerando o arquivo word 
-    fs.writeFileSync("converted.docx", buffer);
-
-
-
-    
   };
 
-  // atualizar arquivo
+  // fazer upload do arquivo e salvar o caminho no banco de dados
   async update(request, response) {
     const template_id = request.params.id;
     const templateFileName = request.file.filename;

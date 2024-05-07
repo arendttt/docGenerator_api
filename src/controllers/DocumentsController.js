@@ -26,12 +26,14 @@ class DocumentsController {
       payment_date 
     } = request.body;
 
+    const template_id = request.params.id;
     const user_id = request.user.id;
 
     const [ document_id ] = await knex("documents").insert({
       title, 
       status, 
-      user_id
+      user_id,
+      template_id
     });
 
     const insertDocumentFields = {
