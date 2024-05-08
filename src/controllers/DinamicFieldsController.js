@@ -11,18 +11,16 @@ class DinamicFieldsController {
     const document_id = request.params.id;
 
     // identificar template que o documento está utilizando
-    const documentTemplate = await knex("documents").where({ id: document_id }).select("template_id").first();
+    const documentTemplate = await knex("documents").where({ id: document_id }).first();
     if(!documentTemplate) {
       throw new AppError("Documento não encontrando ou não associado à um template.")
     }
-
 
     // identificando o caminho do template na tabela templates
     const template = await knex("templates").where({ id: documentTemplate.template_id }).select("template_file").first();
     if(!template) {
       throw new AppError("Template não informado.")
     }
-
 
      // acessando os documentos na pasta templates
      const templatesFilePath = path.join(__dirname, "..", "..", "tmp", "uploads", "templates");
@@ -41,8 +39,6 @@ class DinamicFieldsController {
      // lendo o template 
      const newTemplate = fs.readFileSync(templateFilePath); 
 
-
-  
      const docFields = await knex("documentFields").where({ id: document_id }).select("*").first();
    
     const buffer = await createReport({
@@ -70,7 +66,9 @@ class DinamicFieldsController {
       }
     });
 
-    fs.writeFileSync("converted.docx", buffer);
+    const outputDocumentPath = path.join(__dirname, "..", "..", "tmp", "documents", `${documentTemplate.id} - ${documentTemplate.title}.docx`);
+
+    fs.writeFileSync(outputDocumentPath, buffer);
 
     return response.status(201).json();
   }
