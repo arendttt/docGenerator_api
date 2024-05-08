@@ -9,6 +9,7 @@ const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 const documentsRoutes = Router();
 const documentsController = new DocumentsController();
 const dinamicFieldsController = new DinamicFieldsController();
+
 const docxDownloadsController = new DocxDownloadsController();
 const pdfDownloadsController = new PDFDownloadsController();
 
@@ -22,7 +23,6 @@ documentsRoutes.delete("/:id", documentsController.delete);
 documentsRoutes.post("/document/:id", dinamicFieldsController.create);
 
 documentsRoutes.get("/download/:id", docxDownloadsController.show);
-
 documentsRoutes.get("/pdf/:id", pdfDownloadsController.show);
 
 module.exports = documentsRoutes;

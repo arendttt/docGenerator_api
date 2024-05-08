@@ -15,7 +15,7 @@ class DocxDownloadsController {
 
     if(fs.existsSync(filePath)) {
       try {
-        response.download(filePath, `${document.id} - ${document.title}.docx`);
+        response.download(filePath, `teste.docx`);
         console.log("Arquivo baixado!")
 
       } catch {
